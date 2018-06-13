@@ -1,0 +1,4 @@
+﻿  Camera.cpp
+d:\shagufta\opengl_workspace\bouncingball\bouncingball\sourcefiles\maths\camera.cpp(10): error C2679: binary '=': no operator found which takes a right-hand operand of type 'float' (or there is no acceptable conversion)
+  d:\shagufta\opengl_workspace\bouncingball\bouncingball\includes\maths\vector3.h(35): note: could be 'Vector3 &Vector3::operator =(const Vector3 &)'
+  d:\shagufta\opengl_workspace\bouncingball\bouncingball\sourcefiles\maths\camera.cpp(10): note: while trying to match the argument list '(Vector3, float)'
