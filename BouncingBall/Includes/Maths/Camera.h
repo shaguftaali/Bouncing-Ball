@@ -1,5 +1,7 @@
 #pragma once
 #include "Matrix4.h"
+#include "Transform.h"
+
 class Camera
 {
 public:
@@ -10,11 +12,12 @@ public:
 	float far;
 	float near;
 	float FOV;
-	Camera(const Vector3& a_position,const Vector3& a_eyeDirection,const Vector3& a_up,float a_far, float a_near,float a_FOV);
+	Camera(const Vector3& a_position,const Vector3& a_target,float a_far, float a_near,float a_FOV);
+
+	Matrix4 projectionMatrix;
+	Matrix4 viewMatrix;
 
 private:
-	Matrix4 viewMatrix;
-	Matrix4 projectionMatrix;
 
 	void SetViewMatrix();
 	void SetProjectionMatrix();

@@ -5,6 +5,7 @@
 #include<fstream>
 #include<sstream>
 #include<iostream>
+#include "Maths/Matrix4.h"
 
 class Shader
 {
@@ -22,6 +23,9 @@ public:
 
 	void setFloat(const std::string &name, float value) const;
 
+	void setMat4(const std::string &name, const Matrix4 &mat) const;
+
+	void setVec3(const std::string &name, float x, float y, float z) const;
 
 private:
 	void checkCompilerErrors(unsigned int shader, std::string type);

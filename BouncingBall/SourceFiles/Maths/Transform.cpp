@@ -12,7 +12,9 @@ void Transform::Translation(const Vector3 & targetPosition)
 	);
 
 	Vector4 vec4=mat4*Vector4(targetPosition.x,targetPosition.y,targetPosition.z,1);
-	position=Vector3(vec4.x,vec4.y,vec4.z);
+//	position=Vector3(vec4.x,vec4.y,vec4.z);
+	position=targetPosition;
+	SetModelMatrix();
 
 }
 
@@ -26,7 +28,7 @@ void Transform::Rotation(int axis, float angle)
 {
 	Matrix4 mat4;
 	Vector4 vec4;
-	const float radians=angle*180/PI;
+	const float radians =angle*(PI / 180);
 	switch (axis)
 	{
 	case 0:
@@ -78,9 +80,9 @@ void Transform::Rotation(int axis, float angle)
 void Transform::Scale(const Vector3 & _scale)
 {
 	
-	const Vector4 vec4= Matrix4::IdentityMat*Vector4(_scale.x,_scale.y,_scale.z,1);
-	scale= Vector3(vec4.x,vec4.y,vec4.z);
-
+	//const Vector4 vec4= Matrix4::IdentityMat*Vector4(_scale.x,_scale.y,_scale.z,1);
+	scale= _scale;
+	SetModelMatrix();
 }
 
 Transform::Transform(const Vector3 & a_position, const Vector3 & a_rotation, const Vector3 & a_scale):
@@ -95,7 +97,7 @@ scale(a_scale)
 Transform::Transform(const Vector3 & a_position, const Vector3 & a_rotation):
 	position(a_position),
 	rotation(a_rotation),
-	scale(Vector3())
+	scale(Vector3(1,1,1))
 {
 	
 	SetModelMatrix();
@@ -104,7 +106,7 @@ Transform::Transform(const Vector3 & a_position, const Vector3 & a_rotation):
 Transform::Transform(const Vector3 & a_position):
 	position(a_position),
 	rotation(Vector3()),
-	scale(Vector3())
+	scale(Vector3(1,1,1))
 {
 	SetModelMatrix();
 }
@@ -113,6 +115,7 @@ Transform::Transform(const Vector3 & a_position):
 
 void Transform::SetModelMatrix()
 {
+	Vector3 radin=rotation*(PI/180);
 	const Matrix4 scaleMat = Matrix4(
 		Vector4(scale.x,0,0,0),
 		Vector4(0,scale.y,0,0),
@@ -121,31 +124,33 @@ void Transform::SetModelMatrix()
 
 	);
 
+	
+
 	const Matrix4 translationMat = Matrix4(
-		Vector4(1, 0, 0, position.x),
-		Vector4(0, 1, 0, position.y),
-		Vector4(0, 0, 1, position.z),
-		Vector4(0, 0, 0, 1)
+		Vector4(1, 0, 0, 0),
+		Vector4(0, 1, 0, 0),
+		Vector4(0, 0, 1, 0),
+		Vector4(position.x, position.y, position.z, 1)
 
 	);
 
 	const Matrix4 x_RoatationMat = Matrix4(
 		Vector4(1,0,0,0),
-		Vector4(0,rotation.y,rotation.z,0),
-		Vector4(0,rotation.y,rotation.z,0),
+		Vector4(0,cos(radin.x),-sin(radin.x),0),
+		Vector4(0, sin(radin.x), cos(radin.x),0),
 		Vector4(0,0,0,1)
 	);
 
 	const Matrix4 y_RoatationMat = Matrix4(
-		Vector4(rotation.x, 0, rotation.z, 0),
+		Vector4(cos(radin.y), 0, sin(radin.y), 0),
 		Vector4(0, 1, 0, 0),
-		Vector4(rotation.x, 0, rotation.z, 0),
+		Vector4(-sin(radin.y), 0, cos(radin.y), 0),
 		Vector4(0, 0, 0, 1)
 	);
 
 	const Matrix4 z_RoatationMat = Matrix4(
-		Vector4(rotation.x,rotation.z,0, 0),
-		Vector4(rotation.x, rotation.y,0, 0),
+		Vector4(cos(radin.z), -sin(radin.z),0, 0),
+		Vector4(sin(radin.z), cos(radin.z),0, 0),
 		Vector4(0,0,1, 0),
 		Vector4(0, 0, 0, 1)
 	);

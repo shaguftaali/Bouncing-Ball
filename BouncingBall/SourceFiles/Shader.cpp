@@ -70,14 +70,30 @@ void Shader::use()
 
 void Shader::setBool(const std::string & name, bool value) const
 {
-
+	glUniform1i(glGetUniformLocation(ID, name.c_str()), (int)value);
 }
 
 void Shader::setInt(const std::string & name, int value) const
-{}
+{
+	glUniform1i(glGetUniformLocation(ID, name.c_str()), value);
+
+}
+
+void Shader::setMat4(const std::string &name, const Matrix4 &mat) const
+{
+	//std::cout<<"location "<<name<<"	"<<glGetUniformLocation(ID,name.c_str())<<std::endl;
+	glUniformMatrix4fv(glGetUniformLocation(ID, name.c_str()), 1, GL_FALSE, &mat[0][0]);
+}
 
 void Shader::setFloat(const std::string & name, float value) const
-{}
+{
+	glUniform1f(glGetUniformLocation(ID, name.c_str()), value);
+}
+
+void Shader::setVec3(const std::string &name, float x, float y, float z) const
+{
+	glUniform3f(glGetUniformLocation(ID, name.c_str()), x, y, z);
+}
 
 void Shader::checkCompilerErrors(unsigned int shader, std::string type)
 {

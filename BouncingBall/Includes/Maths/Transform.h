@@ -18,10 +18,10 @@ public:
 
 	Transform(const Vector3& a_position,const Vector3& a_rotation,const Vector3& a_scale);
 	Transform(const Vector3& a_position, const Vector3& a_rotation);
-	Transform(const Vector3& a_position);
+	Transform(const Vector3& a_position = Vector3());
 
-private:
 	Matrix4 modelMatrix;
+private:
 
 	void SetModelMatrix();
 };

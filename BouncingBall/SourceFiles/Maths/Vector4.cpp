@@ -3,7 +3,8 @@
 Vector4::Vector4():
 x(0),
 y(0),
-z(0)
+z(0),
+w(0)
 {}
 
 Vector4::Vector4(float a_x, float a_y, float a_z, float a_w):

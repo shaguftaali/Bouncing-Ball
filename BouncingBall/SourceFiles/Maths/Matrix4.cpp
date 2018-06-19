@@ -21,8 +21,8 @@ Matrix4::Matrix4(const Vector4& a_v1, const Vector4& a_v2, const Vector4& a_v3, 
 {
 	setMatrixRow(0,a_v1);
 	setMatrixRow(1, a_v2);
-	setMatrixRow(2, a_v2);
-	setMatrixRow(3, a_v3);
+	setMatrixRow(2, a_v3);
+	setMatrixRow(3, a_v4);
 }
 
 Matrix4::Matrix4(float _arg[4][4])
